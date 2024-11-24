@@ -1,0 +1,72 @@
+[build-system]
+requires = ["setuptools>=65.0.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cbar-rates"
+description = "Python library to work with AZN (Azerbaijani manat) official rates"
+
+readme = "README.md"
+requires-python = ">=3.7"
+authors = [
+    { name = "Tahir Jalilov", email = "tahir.jalilov@gmail.com" },
+]
+keywords = ["cbar-rates"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Information Technology",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+    "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Typing :: Typed",
+]
+dependencies = [
+    "typing_extensions >= 4.7.0; python_version < '3.9'",
+    "requests >= 2.20.0"
+]
+dynamic = ["version"]
+
+[project.urls]
+homepage = "https://github.com/TahirJalilov/cbar-rates/"
+repository = "https://github.com/TahirJalilov/cbar-rates/"
+
+[project.optional-dependencies]
+dev = ["pytest>=7.4.4"]
+
+[tool.setuptools.packages.find]
+include = ["cbar*"]
+
+[tool.setuptools.dynamic]
+version = { attr = "cbar.__version__" }
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+
+[tool.pyright]
+pythonVersion = "3.7"
+pythonPlatform = "All"
+typeCheckingMode = "strict"
+exclude = [
+    "**/__pycache__",
+    ".idea",
+    ".git",
+    ".venv",
+    "build",
+]
+
+[tool.ruff]
+line-length = 88
