@@ -5,10 +5,10 @@ import xml.etree.ElementTree as ET
 from datetime import date
 from typing import Dict, List, Optional, Union
 
-__all__ = ["get_rates"]
 
-
-def _get_cbar_data(date_: date) -> Dict[str, Union[str, Dict[str, Dict[str, Union[float, str]]]]]:
+def _get_cbar_data(
+    date_: date,
+) -> Dict[str, Union[str, Dict[str, Dict[str, Union[float, str]]]]]:
     """Get xml file with rates from CBAR parse it and return as dictionary.
 
     Args:
@@ -38,7 +38,7 @@ def _get_cbar_data(date_: date) -> Dict[str, Union[str, Dict[str, Dict[str, Unio
 
 def get_rates(
     date_: Optional[date] = None, currencies: Optional[List[str]] = None
-) ->  Dict[str, Union[str, Dict[str, Dict[str, Union[int, float]]]]]:
+) -> Dict[str, Union[str, Dict[str, Dict[str, Union[int, float]]]]]:
     """Get exchange rates for a given date and optionally filter by currency codes.
 
     Args:
@@ -72,13 +72,18 @@ def get_rates(
     result = _get_cbar_data(date_)
 
     if currencies is not None:
-        if not isinstance(currencies, list) or not all(isinstance(s, str) for s in currencies):
-            raise TypeError("Currencies must be a list of strings (ISO 4217 currency codes).")
+        if not isinstance(currencies, list) or not all(
+            isinstance(s, str) for s in currencies
+        ):
+            raise TypeError(
+                "Currencies must be a list of strings (ISO 4217 currency codes)."
+            )
 
         currencies_set = {s.upper() for s in currencies}
         result["currencies"] = {
             currency: result["currencies"].get(currency)
-            for currency in currencies_set if currency in result["currencies"]
+            for currency in currencies_set
+            if currency in result["currencies"]
         }
 
     return result

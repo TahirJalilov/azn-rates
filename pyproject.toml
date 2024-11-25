@@ -56,17 +56,5 @@ version = { attr = "cbar.__version__" }
 pythonpath = ["."]
 testpaths = ["tests"]
 
-[tool.pyright]
-pythonVersion = "3.7"
-pythonPlatform = "All"
-typeCheckingMode = "strict"
-exclude = [
-    "**/__pycache__",
-    ".idea",
-    ".git",
-    ".venv",
-    "build",
-]
-
 [tool.ruff]
 line-length = 88
