@@ -5,13 +5,13 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "cbar-rates"
 description = "Python library to work with AZN (Azerbaijani manat) official rates"
-
-readme = "README.md"
-requires-python = ">=3.7"
 authors = [
     { name = "Tahir Jalilov", email = "tahir.jalilov@gmail.com" },
 ]
-keywords = ["cbar-rates"]
+
+readme = "README.md"
+requires-python = ">=3.7"
+keywords = ["cbar-rates", "AZN", "Azerbaijan", "AZN-Rates", "CBAR", "Manat", "Mezenne"]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
@@ -40,8 +40,9 @@ dependencies = [
 dynamic = ["version"]
 
 [project.urls]
-homepage = "https://github.com/TahirJalilov/cbar-rates/"
-repository = "https://github.com/TahirJalilov/cbar-rates/"
+Homepage = "https://github.com/TahirJalilov/cbar-rates/"
+Repository = "https://github.com/TahirJalilov/cbar-rates/"
+Issues = "https://github.com/TahirJalilov/cbar-rates/issues"
 
 [project.optional-dependencies]
 dev = ["pytest>=7.4.4"]
@@ -58,3 +59,19 @@ testpaths = ["tests"]
 
 [tool.ruff]
 line-length = 88
+
+[tool.tox]
+legacy_tox_ini = """
+    [tox]
+    minversion = 4.15.0
+
+    [testenv]
+    description = Run the tests with pytest
+    package = wheel
+    wheel_build_env = .pkg
+    changedir = tests
+    deps =
+        pytest>=6
+    commands =
+        pytest {tty:--color=yes} --basetemp="{envtmpdir}" {posargs}
+"""
