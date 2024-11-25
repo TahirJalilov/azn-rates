@@ -41,7 +41,7 @@ jobs:
     - name: Extract source tarball
       run: tar xf dist/*.tar.gz --strip-components=1
     - name: Remove source code
-      run: rm -R cbar-rates
+      run: rm -R cbar
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v5
       with:
