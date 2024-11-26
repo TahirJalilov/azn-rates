@@ -5,22 +5,24 @@ on: [push]
 jobs:
 
   build-package:
-    name: Build & verify package
+    name: Build & Verify Package
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Repository
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - uses: hynek/build-and-inspect-python-package@v2
+      - name: Build and Inspect Package
+        uses: hynek/build-and-inspect-python-package@v2
         id: baipp
 
     outputs:
       python-versions: ${{ steps.baipp.outputs.supported_python_classifiers_json_array }}
 
   testwheel:
-    name: Test whl
+    name: Test Built Wheel
     runs-on: ubuntu-latest
     needs: build-package
     strategy:
@@ -31,22 +33,27 @@ jobs:
             - "3.11"
             - "3.12"
             - "3.13"
-    steps:
 
-    - name: Download pre-built packages
-      uses: actions/download-artifact@v4
-      with:
-        name: Packages
-        path: dist
-    - name: Extract source tarball
-      run: tar xf dist/*.tar.gz --strip-components=1
-    - name: Remove source code
-      run: rm -R cbar
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v5
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: Install tox
-      run: python -Im pip install tox
-    - name: Run tox on wheel
-      run: python -Im tox run --installpkg dist/*.whl
+    steps:
+      - name: Download Pre-built Package
+        uses: actions/download-artifact@v4
+        with:
+          name: Packages
+          path: dist
+
+      - name: Extract Source Tarball
+        run: tar xf dist/*.tar.gz --strip-components=1
+
+      - name: Remove Source Code
+        run: rm -R cbar
+
+      - name: Set Up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install Tox
+        run: python -Im pip install tox
+
+      - name: Run Tox on Wheel
+        run: python -Im tox run --installpkg dist/*.whl
