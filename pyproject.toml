@@ -9,7 +9,7 @@ authors = [
     { name = "Tahir Jalilov", email = "tahir.jalilov@gmail.com" },
 ]
 
-readme = "README.md"
+readme = { file = "README.md", content-type = "text/markdown" }
 requires-python = ">=3.7"
 keywords = ["cbar-rates", "AZN", "Azerbaijan", "AZN-Rates", "CBAR", "Manat", "Mezenne"]
 classifiers = [
@@ -43,6 +43,7 @@ dynamic = ["version"]
 Homepage = "https://github.com/TahirJalilov/cbar-rates/"
 Repository = "https://github.com/TahirJalilov/cbar-rates/"
 Issues = "https://github.com/TahirJalilov/cbar-rates/issues"
+Changelog = "https://github.com/TahirJalilov/cbar-rates/blob/main/CHANGES.md"
 
 [project.optional-dependencies]
 dev = ["pytest>=7.4.4"]
