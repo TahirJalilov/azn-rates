@@ -29,7 +29,7 @@ def _get_cbar_data(
     for currency in tree.iter("Valute"):
         currencies[currency.get("Code")] = {
             "nominal": currency.find("Nominal").text,
-            "value": float(currency.find("Value").text),
+            "rate": float(currency.find("Value").text),
         }
 
     cbar_data = {"date": tree.attrib.get("Date"), "currencies": currencies}
@@ -55,11 +55,11 @@ def get_rates(
                 "currencies": {
                     "USD": {
                         "nominal": "1",
-                        "value": 1.7
+                        "rate": 1.7
                     },
                     "EUR": {
                         "nominal": "1",
-                        "value": 1.85
+                        "rate": 1.85
                     },
                 }
             }
@@ -117,14 +117,14 @@ def get_rates_with_diff(
                 "currencies": {
                     "USD": {
                         "nominal": "1",
-                        "previous_value": 1.7,
-                        "value": 1.7,
+                        "previous_rate": 1.7,
+                        "rate": 1.7,
                         "difference": 0.0,
                     },
                     "EUR": {
                         "nominal": "1",
-                        "previous_value": 1.7814,
-                        "value": 1.7815,
+                        "previous_rate": 1.7814,
+                        "rate": 1.7815,
                         "difference": 0.0001,
                     },
                 }
@@ -155,14 +155,14 @@ def get_rates_with_diff(
     }
 
     for currency, data in previous_result["currencies"].items():
-        previous_value = data["value"]
-        value = result["currencies"][currency]["value"]
-        difference = value - previous_value
+        previous_rate = data["rate"]
+        rate = result["currencies"][currency]["rate"]
+        difference = rate - previous_rate
 
         rates["currencies"][currency] = {
             "nominal": data["nominal"],
-            "previous_value": previous_value,
-            "value": value,
+            "previous_rate": previous_rate,
+            "rate": rate,
             "difference": round(difference, 4),
         }
 

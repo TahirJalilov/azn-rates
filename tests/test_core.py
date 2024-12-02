@@ -18,7 +18,7 @@ def test_get_rates():
 
     assert isinstance(rates, dict)
     assert rates["date"] == "18.11.2024"
-    assert rates["currencies"] == {"USD": {"nominal": "1", "value": 1.7}}
+    assert rates["currencies"] == {"USD": {"nominal": "1", "rate": 1.7}}
 
 
 def test_get_rates_type_error():
@@ -42,8 +42,8 @@ def test_get_rates_with_diff():
     assert rates["currencies"] == {
         "EUR": {
             "nominal": "1",
-            "previous_value": 1.7814,
-            "value": 1.7815,
+            "previous_rate": 1.7814,
+            "rate": 1.7815,
             "difference": 0.0001,
         }
     }
