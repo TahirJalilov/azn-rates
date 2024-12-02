@@ -62,27 +62,27 @@ from datetime import date
 import cbar
 
 previous_date = date(2024, 11, 25)
-next_date = date(2024, 11, 26)
+date_ = date(2024, 11, 26)
 currencies = ["USD", "EUR"]
 
-rates = cbar.get_rates_with_diff(previous_date, next_date, currencies)
+rates = cbar.get_rates_with_diff(previous_date, date_, currencies)
 
 print(rates)
 # Output:
 {
     "previous_date": "25.11.2024",
-    "next_date": "26.11.2024",
+    "date": "26.11.2024",
     "currencies": {
         "USD": {
             "nominal": "1",
             "previous_value": 1.7,
-            "next_value": 1.7,
+            "value": 1.7,
             "difference": 0.0,
         },
         "EUR": {
             "nominal": "1",
             "previous_value": 1.7814,
-            "next_value": 1.7815,
+            "value": 1.7815,
             "difference": 0.0001,
         },
     }
@@ -92,4 +92,4 @@ print(rates)
 You can find all available currency codes on the [CBAR website](https://www.cbar.az/currency/rates?language=en)
 
 ## License
-This project is licensed under the [MIT License](https://github.com/TahirJalilov/cbar-rates?tab=MIT-1-ov-file).
+This project is licensed under the [MIT License](https://github.com/TahirJalilov/cbar-rates?tab=MIT-1-ov-file#MIT-1-ov-file).

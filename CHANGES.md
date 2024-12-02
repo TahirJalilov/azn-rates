@@ -1,6 +1,10 @@
 cbar-rates
 =====
 
+v1.2.0 (2024-12-02)
+-----
+* Ensured that the order of currencies in the "currencies" dictionary matches the order specified in the input currencies list by using `OrderedDict`.
+
 v1.1.0 (2024-12-01)
 -----
 * Added functionality to retrieve CBAR rates with the difference between values for two different dates.
