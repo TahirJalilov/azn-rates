@@ -46,11 +46,11 @@ print(rates)
     "currencies": {
         "USD": {
             "nominal": "1",
-            "value": 1.7
+            "rate": 1.7
         },
         "EUR": {
             "nominal": "1",
-            "value": 1.7919
+            "rate": 1.7919
         },
     }
 }
@@ -75,14 +75,14 @@ print(rates)
     "currencies": {
         "USD": {
             "nominal": "1",
-            "previous_value": 1.7,
-            "value": 1.7,
+            "previous_rate": 1.7,
+            "rate": 1.7,
             "difference": 0.0,
         },
         "EUR": {
             "nominal": "1",
-            "previous_value": 1.7814,
-            "value": 1.7815,
+            "previous_rate": 1.7814,
+            "rate": 1.7815,
             "difference": 0.0001,
         },
     }
