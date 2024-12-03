@@ -98,4 +98,4 @@ print(rates)
 You can find all available currency codes on the [CBAR website](https://www.cbar.az/currency/rates?language=en)
 
 ## License
-This project is licensed under the [MIT License](https://github.com/TahirJalilov/cbar-rates?tab=MIT-1-ov-file#MIT-1-ov-file).
+This project is licensed under the [MIT License](https://github.com/TahirJalilov/cbar-rates/blob/main/LICENSE.md).
