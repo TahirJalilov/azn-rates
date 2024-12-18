@@ -98,6 +98,24 @@ print(rates)
 }
 ```
 
+### Usage of `convert()`
+
+```python
+from datetime import date
+import cbar
+
+amount = 100
+from_currency = "USD"
+to_currency = "AZN"
+conversion_date = date(2024, 11, 25)
+
+converted_amount = cbar.convert(amount, from_currency, to_currency, conversion_date)
+
+print(converted_amount)
+# Output:
+170.0  # 1 USD = 1.7 AZN
+```
+
 You can find all available currency codes on the [CBAR website](https://www.cbar.az/currency/rates?language=en)
 
 ## License
