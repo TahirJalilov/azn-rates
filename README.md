@@ -5,15 +5,16 @@
 [![PyPI - Downloads](https://img.shields.io/pypi/dm/cbar-rates)](https://pypistats.org/packages/cbar-rates)
 [![License](https://img.shields.io/pypi/l/cbar-rates)](LICENSE.md)
 
-
 A Python library to work with Azerbaijani manat (AZN) official exchange rates based on [CBAR](https://cbar.az/currency/rates?language=en) (The Central Bank of the Republic of Azerbaijan).
 
 ## Features
+
 - Retrieve official CBAR exchange rates for the Azerbaijani manat (AZN).
 - Compare exchange rates between two dates and calculate differences.
 - Filter results by specific currency codes (e.g., USD, EUR).
 
 ## Requirements
+
 - Python 3.7 or higher
 - `requests` library
 
@@ -36,6 +37,7 @@ pip install cbar-rates
 ## Examples
 
 ### Usage of `get_rates()`
+
 ```python
 from datetime import date
 import cbar
@@ -63,6 +65,7 @@ print(rates)
 ```
 
 ### Usage of `get_rates_with_diff()`
+
 ```python
 from datetime import date
 import cbar
@@ -98,4 +101,5 @@ print(rates)
 You can find all available currency codes on the [CBAR website](https://www.cbar.az/currency/rates?language=en)
 
 ## License
+
 This project is licensed under the [MIT License](https://github.com/TahirJalilov/cbar-rates/blob/main/LICENSE.md).

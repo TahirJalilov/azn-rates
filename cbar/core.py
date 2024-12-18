@@ -25,16 +25,15 @@ def _get_cbar_data(
     response = requests.get(request_url, timeout=10)
     response.raise_for_status()
     tree = ET.fromstring(response.text)
-    currencies = {}
-    for currency in tree.iter("Valute"):
-        currencies[currency.get("Code")] = {
+    currencies = {
+        currency.get("Code"): {
             "nominal": currency.find("Nominal").text,
             "rate": float(currency.find("Value").text),
         }
+        for currency in tree.iter("Valute")
+    }
 
-    cbar_data = {"date": tree.attrib.get("Date"), "currencies": currencies}
-
-    return cbar_data
+    return {"date": tree.attrib.get("Date"), "currencies": currencies}
 
 
 def get_rates(
@@ -66,12 +65,10 @@ def get_rates(
     Raises:
         TypeError: If currencies is not a list of strings.
     """
-    if date_ is None:
-        date_ = date.today()
-
+    date_ = date_ or date.today()
     rates = _get_cbar_data(date_)
 
-    if currencies is not None:
+    if currencies:
         if not isinstance(currencies, list) or not all(
             isinstance(s, str) for s in currencies
         ):
@@ -81,14 +78,10 @@ def get_rates(
 
         currencies_set = {s.upper() for s in currencies}
 
-        filtered_currencies = {
-            currency: rates["currencies"].get(currency)
+        rates["currencies"] = OrderedDict(
+            (currency, rates["currencies"][currency])
             for currency in currencies_set
             if currency in rates["currencies"]
-        }
-
-        rates["currencies"] = OrderedDict(
-            (currency, filtered_currencies[currency]) for currency in currencies_set
         )
 
     return rates
@@ -165,9 +158,57 @@ def get_rates_with_diff(
             "rate": rate,
             "difference": round(difference, 4),
         }
-
-    rates["currencies"] = OrderedDict(
-        (currency, rates["currencies"][currency]) for currency in currencies
-    )
+    if currencies:
+        rates["currencies"] = OrderedDict(
+            (currency, rates["currencies"][currency])
+            for currency in currencies
+            if currency in rates["currencies"]
+        )
 
     return rates
+
+
+def convert(
+    amount: float, from_currency: str, to_currency: str, date_: Optional[date] = None
+) -> float:
+    """Convert an amount from one currency to another for a given date.
+
+    Args:
+        amount (float): Amount to convert.
+        from_currency (str): ISO 4217 currency code to convert from.
+                     (https://www.cbar.az/currency/rates?language=en).
+        to_currency (str): ISO 4217 currency code to convert to.
+                   (https://www.cbar.az/currency/rates?language=en).
+        date_ (Optional[date]): Date of the rates. Defaults to today's date.
+                If rates for current date not exist, the previous working day's rates will be used.
+
+    Returns:
+        float: Converted amount.
+
+    Raises:
+        ValueError: If the source and target currencies are the same or unavailable.
+    """
+    if from_currency == to_currency:
+        raise ValueError("Source and target currencies must be different.")
+
+    if from_currency == "AZN":
+        to_rate = 1
+    else:
+        rates = get_rates(date_, [from_currency])
+        if from_currency not in rates["currencies"]:
+            raise ValueError(
+                f"Currency {from_currency} is not available on {rates['date']}."
+            )
+        to_rate = rates["currencies"][from_currency]["rate"]
+
+    if to_currency == "AZN":
+        from_rate = 1
+    else:
+        rates = get_rates(date_, [to_currency])
+        if to_currency not in rates["currencies"]:
+            raise ValueError(
+                f"Currency {to_currency} is not available on {rates['date']}."
+            )
+        from_rate = rates["currencies"][to_currency]["rate"]
+
+    return round(amount * to_rate / from_rate, 4)
