@@ -6,7 +6,8 @@ from datetime import date
 
 
 def test_cbar_xml():
-    r = requests.get("https://cbar.az/currencies/18.11.2024.xml", timeout=10)
+    test_date = "18.11.2024"
+    r = requests.get(f"https://cbar.az/currencies/{test_date}.xml", timeout=10)
 
     assert r.status_code == 200
     assert r.text.startswith('<?xml version="1.0" encoding="UTF-8"?>')
@@ -83,7 +84,7 @@ def test_convert_from_azn():
 def test_convert_to_azn():
     result = cbar.convert(100, "AZN", "USD", date(2024, 11, 18))
     assert isinstance(result, float)
-    assert result == 58.8235  # 1 USD = 1.7 AZN
+    assert result == 58.8235  # 1 AZN = 1/1.7 USD
 
 
 def test_convert_non_azn():

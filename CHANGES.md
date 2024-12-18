@@ -1,6 +1,11 @@
 cbar-rates
 =====
 
+v1.3.0 (2024-12-18)
+-----
+* Added `convert` function to convert an amount from one currency to another for a given date.
+* Implemented error handling for unavailable source or target currencies.
+
 v1.2.0 (2024-12-02)
 -----
 * Ensured that the order of currencies in the "currencies" dictionary matches the order specified in the input currencies list by using `OrderedDict`.
